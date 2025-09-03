@@ -1,8 +1,9 @@
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>🎂 Feliz 26 — Para Mi Amor</title>
+  <title>🎂 Tarjeta para ChiKisTriKis</title>
   <!-- Tarjeta virtual 26: un solo archivo HTML/CSS/JS, sin librerías externas -->
   <style>
     :root{
@@ -15,7 +16,7 @@
     body{
       margin:0; color:var(--ink); font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
       background: radial-gradient(1000px 800px at 50% 110%, #8c2eff33, transparent 60%),
-                  linear-gradient(160deg,var(--bg1),var(--bg2));
+                    linear-gradient(160deg,var(--bg1),var(--bg2));
       overflow-x:hidden;
     }
 
@@ -37,8 +38,8 @@
     .btn:hover{transform:translateY(-1px) scale(1.02); background:#ffffff22}
 
     /* Hero con número 26 */
-    .hero{position:relative; display:grid; place-items:center; padding:28px 0 18px 0}
-    .num{font-size: clamp(80px, 22vw, 220px); line-height:.9; font-weight:900; letter-spacing: -6px; position:relative; text-shadow:0 10px 40px #0008}
+    .hero{position:relative; display:grid; place-items:center; padding:38px 0 48px 0}
+    .num{font-size: clamp(80px, 22vw, 220px); line-height:.9; font-weight:900; letter-spacing: -6px; position:relative; text-shadow:0 10px 40px #0008; animation: pulse-num 2s infinite ease-in-out;}
     .num .fill{background: linear-gradient(180deg, #fff, #ffe2a8 60%, #fffa 70%);
       -webkit-background-clip:text; background-clip:text; color:transparent; filter: drop-shadow(0 0 30px #ffd16660)}
     .num::after{content:""; position:absolute; inset:-6px; border-radius:18px; background: conic-gradient(from 120deg, #fff0 0 70%, #ffd16644 85%, #fff0 100%);
@@ -51,25 +52,50 @@
     .heart::after{top:-11px}
     .pulse{animation:pulse 1.6s ease-in-out infinite}
     @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+    @keyframes pulse-num{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 
     /* Secciones */
     .grid{display:grid; grid-template-columns:1fr; gap:16px; margin-top:20px}
-    @media(min-width:820px){.grid{grid-template-columns:1.2fr .8fr}}
+    /* El cuadro de momentos ahora tiene un ancho fijo */
+    @media(min-width:820px){.grid{grid-template-columns:1fr 400px}}
     .panel{border:1px solid var(--stroke); background:#ffffff10; border-radius:22px; padding:16px 16px}
+    /* Limita la altura del cuadro de momentos y lo hace deslizable */
+    .grid aside.panel{max-height:400px; overflow-y:auto}
 
     .title{font-size:clamp(18px,2.4vw,26px); margin:0 0 8px 0}
     .lead{font-size:clamp(14px,2vw,18px); opacity:.9}
 
-    /* Galería simple */
-    .gallery{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:8px}
-    @media(min-width:620px){.gallery{grid-template-columns:repeat(3,1fr)}}
-    .ph{position:relative; aspect-ratio:1; border-radius:16px; overflow:hidden; background:#ffffff12; border:1px dashed #ffffff44; display:grid; place-items:center; font-weight:700}
+    /* GALERÍAS con diseño cuadrado y bordes redondeados */
+    .gallery-wrap{overflow:hidden; position:relative; }
+    .gallery, .gallery-reverse{
+        display:flex;
+        flex-wrap: nowrap;
+        gap:10px;
+        margin-top:8px;
+        padding-bottom: 8px;
+    }
+    .gallery{animation: scroll-left 45s linear infinite;}
+    .gallery-reverse{animation: scroll-right 45s linear infinite;}
+    
+    /* El cambio principal: ahora las imágenes son cuadradas con bordes redondeados */
+    .ph{position:relative; aspect-ratio:1; border-radius:12px; overflow:hidden; background:#ffffff12; border:1px dashed #ffffff44; display:grid; place-items:center; font-weight:700; flex-shrink: 0; width: 100px; height: 100px;}
     .ph img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
 
-    /* Carta desplegable */
+    /* Animaciones de desplazamiento */
+    @keyframes scroll-left {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+    @keyframes scroll-right {
+        from { transform: translateX(-50%); }
+        to { transform: translateX(0%); }
+    }
+
+    /* Carta desplegable con video */
     details{border:1px solid var(--stroke); background:#ffffff0f; border-radius:16px; padding:12px 14px}
     summary{cursor:pointer; font-weight:800; letter-spacing:.5px}
     .note{margin:8px 0 0 0; line-height:1.6}
+    video{width:100%; border-radius: 12px; margin-top: 8px;}
 
     /* Footer */
     .foot{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:16px}
@@ -79,8 +105,12 @@
 
     /* Modal de portada */
     .cover{position:fixed; inset:0; display:grid; place-items:center; background:radial-gradient(1200px 900px at 50% 120%, #ff4d6d22, transparent 60%), linear-gradient(160deg,var(--bg1),var(--bg2)); z-index:10}
-    .cover .inner{width:min(720px,92vw); text-align:center; padding:34px; border-radius:28px; border:1px solid var(--stroke); background:linear-gradient(180deg,var(--glass),#ffffff12); box-shadow:0 20px 80px #0008}
-    .cover h1{margin:0 0 10px 0; font-size: clamp(26px,6vw,44px)}
+    /* Hecho el cuadro más grande */
+    .cover .inner{width:min(900px,92vw); text-align:center; padding:44px; border-radius:28px; border:1px solid var(--stroke); background:linear-gradient(180deg,var(--glass),#ffffff12); box-shadow:0 20px 80px #0008}
+    .cover .main-title { margin:0; font-size: clamp(40px,10vw,80px); line-height: 1; }
+    .cover .sub-title { margin-top: 0.5rem; font-size: clamp(28px, 6vw, 50px); line-height: 1; }
+    /* Hecho el GIF más grande */
+    .cover .stitch-gif{ width: 200px; height: auto; vertical-align: middle; margin: 0 8px; }
     .cover p{opacity:.92; margin:.4rem 0 1.2rem}
     .big-cta{font-size:clamp(16px,3.8vw,20px); padding:14px 18px}
 
@@ -98,7 +128,13 @@
   <!-- Portada para abrir la tarjeta -->
   <div class="cover" id="cover">
     <div class="inner">
-      <h1>Feliz cumpleaños <br>🎉<span id="nameCover">Hillary</span> 🎉</h1>
+      <h1 class="main-title">Feliz cumpleaños</h1>
+      <!-- He añadido los GIFs de Stitch a los lados del nombre -->
+      <h2 class="sub-title">
+        <img class="stitch-gif" src="3.gif" alt="Stitch bailando">
+        <span id="nameCover"></span>
+        <img class="stitch-gif" src="4.gif" alt="Stitch bailando">
+      </h2>
       <p>Preparé algo especial para celebrar tu día. Toca el botón para abrir tu tarjeta 💌</p>
       <button class="btn big-cta" id="openBtn">Abrir mi tarjeta</button>
       <div class="hint">Puedes activar música y lanzar confeti dentro ✨</div>
@@ -108,7 +144,7 @@
   <div class="wrap">
     <div class="card">
       <div class="top">
-        <div class="badge">🎂 Cumple 26 • <span id="name">Hillary</span></div>
+        <div class="badge">🎂 Felises 26 • <span id="name"></span></div>
         <div class="controls">
           <button class="btn tip" id="partyBtn" data-tip="Lanzar confeti">🎉</button>
           <button class="btn tip" id="musicBtn" data-tip="Música on/off">🎵</button>
@@ -125,32 +161,58 @@
           <h3 class="title">Para ti, amor</h3>
           <p class="lead" id="message">Hoy celebro tu vida, tu risa y lo increíble que eres. Gracias por cada momento. Que este nuevo año te traiga aventuras, salud y mucha felicidad. 💖</p>
           <details>
-            <summary>Leer una cartita 💌</summary>
-            <div class="note" id="letter">
-              Mi vida,
-              <br><br>
-              Desde que te conocí, mis días son más bonitos. Admiro tu fuerza, tu ternura y todo lo que sueñas. Que a los 26 cumplas metas que aún no imaginas; yo estaré a tu lado para celebrarlas.
-              <br><br>
-              Con todo mi amor,
-              <br>
-              — Tu persona favorita 🫶
+            <summary>Leer carta 💌</summary>
+            <div class="note">
+                <p>Mi vida,</p>
+                <p>Desde que te conocí, mis días son más bonitos. Admiro tu fuerza, tu ternura y todo lo que sueñas. Que a los 26 cumplas metas que aún no imaginas; yo estaré a tu lado para celebrarlas.</p>
+                <p>Con todo mi amor,<br>— Tu persona favorita 🫶</p>
+                <video id="cartaVideo" autoplay loop muted playsinline controls>
+                    <source src="" type="video/mp4">
+                    Tu navegador no soporta el tag de video.
+                </video>
             </div>
           </details>
         </section>
 
         <aside class="panel">
           <h3 class="title">Momentos</h3>
-          <div class="gallery" id="gallery">
-            <!-- Reemplaza src por tus fotos (mis-fotos/1.jpg, etc.) -->
-            <div class="ph"><img alt="" src="1.jpeg" onerror="this.replaceWith(ph())"></div>
-            <div class="ph"><img alt="" src="2.jpeg" onerror="this.replaceWith(ph())"></div>
-            <div class="ph"><img alt="" src="3.jpeg" onerror="this.replaceWith(ph())"></div>
-            <div class="ph"><img alt="" src="4.jpeg" onerror="this.replaceWith(ph())"></div>
-            <div class="ph"><img alt="" src="5.jpeg" onerror="this.replaceWith(ph())"></div>
-            <div class="ph"><img alt="" src="6.jpeg" onerror="this.replaceWith(ph())"></div>
-            <div class="ph"><img alt="" src="7.jpeg" onerror="this.replaceWith(ph())"></div>
-            <div class="ph"><img alt="" src="8.jpeg" onerror="this.replaceWith(ph())"></div>
-            <div class="ph"><img alt="" src="9.jpeg" onerror="this.replaceWith(ph())"></div>
+          <!-- Galería 1 -->
+          <div class="gallery-wrap">
+            <div class="gallery" id="gallery">
+              <div class="ph"><img alt="" src="22.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="19.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="18.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="17.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="16.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="15.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="14.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="13.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="12.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="10.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="9.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="8.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="7.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="2.jpeg" onerror="this.replaceWith(ph())"></div>
+            </div>
+          </div>
+          <!-- Galería 2 -->
+          <div class="gallery-wrap">
+            <div class="gallery-reverse" id="galleryReverse">
+              <div class="ph"><img alt="" src="2.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="7.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="8.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="9.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="10.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="12.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="13.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="14.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="15.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="16.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="17.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="18.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="19.jpeg" onerror="this.replaceWith(ph())"></div>
+              <div class="ph"><img alt="" src="22.jpeg" onerror="this.replaceWith(ph())"></div>
+            </div>
           </div>
         </aside>
       </div>
@@ -171,11 +233,11 @@
        PERSONALIZA ACÁ 👇
        ===================== */
     const DATA = {
-      nombre: 'Mi ChiKisTrikis',
+      nombrePortada: 'Mi ChiKisTriKis',
+      nombreInside: 'Mi Niña',
       edad: 26,
       mensaje: 'Hoy celebro tu vida, tu risa y lo increíble que eres. Gracias por cada momento. Que este nuevo año te traiga aventuras, salud y mucha felicidad. 💖',
-      carta: `Mi vida,\n\nDesde que te conocí, mis días son más bonitos. Admiro tu fuerza, tu ternura y todo lo que sueñas. Que a los 26 cumplas metas que aún no imaginas; yo estaré a tu lado para celebrarlas.\n\nCon todo mi amor,\n— Tu persona favorita 🫶`,
-      whatsapp: '+50578517528', // ← cambia al número de tu novia (con código de país)
+      videoSrc: 'v1.mp4', // <--- REEMPLAZA CON LA RUTA DE TU VIDEO
       musica: 'por primera vez.mp3', // ejemplo: 'musica.mp3'
       paletas: [
         ['#0f1025','#2b2a66','#ffd166','#ff477e'],
@@ -185,17 +247,25 @@
       ]
     }
 
-    // Pintar nombre, textos y música
-    const nameEls = [document.getElementById('name'), document.getElementById('nameCover')];
-    nameEls.forEach(el=> el.textContent = DATA.nombre);
-    document.getElementById('message').textContent = DATA.mensaje;
-    document.getElementById('letter').innerText = DATA.carta;
-    const audio = document.getElementById('song');
+    const D = document;
+    const $ = (s) => D.querySelector(s);
+    const $$ = (s) => D.querySelectorAll(s);
+
+    // Pintar nombres, textos y música
+    $('#nameCover').textContent = DATA.nombrePortada;
+    $('#name').textContent = DATA.nombreInside;
+    $('#message').textContent = DATA.mensaje;
+    const audio = $('#song');
     if(DATA.musica){
-      const src = document.createElement('source'); src.src = DATA.musica; src.type = 'audio/mpeg'; audio.appendChild(src);
+      const src = D.createElement('source'); src.src = DATA.musica; src.type = 'audio/mpeg'; audio.appendChild(src);
+    } else {
+      $('#musicBtn').style.display = 'none'; // Oculta el botón de música si no hay archivo
     }
+    const cartaVideo = $('#cartaVideo');
+    cartaVideo.src = DATA.videoSrc;
+
     // Confeti
-    const canvas = document.getElementById('confetti'); const ctx = canvas.getContext('2d'); const DPR = Math.min(devicePixelRatio||1,2);
+    const canvas = $('#confetti'); const ctx = canvas.getContext('2d'); const DPR = Math.min(devicePixelRatio||1,2);
     let W,H; function R(){W=canvas.width=Math.floor(innerWidth*DPR); H=canvas.height=Math.floor(innerHeight*DPR);} addEventListener('resize',R,{passive:true}); R();
     const colors = ['#FFD166','#06D6A0','#118AB2','#EF476F','#F7B801','#A8E6CF','#9B5DE5','#00D1FF'];
     const pieces=[]; class P{constructor(x,y){this.x=x;this.y=y;this.vx=(Math.random()-.5)*6;this.vy=Math.random()*-8-6;this.s=Math.random()*8+4;this.c=colors[Math|Math.random()*colors.length];this.r=Math.random()*Math.PI;this.vr=(Math.random()-.5)*.2;this.life=0}
@@ -205,32 +275,54 @@
     (function loop(){ctx.clearRect(0,0,W,H); for(let i=pieces.length-1;i>=0;i--){const p=pieces[i]; p.step(); p.draw(); if(p.y>H+80||p.x<-80||p.x>W+80||p.life>260) pieces.splice(i,1)} requestAnimationFrame(loop)})()
 
     // Portada abrir
-    const cover = document.getElementById('cover');
-    document.getElementById('openBtn').addEventListener('click', ()=>{ cover.style.display='none'; boom(140); playMusic(); });
+    const cover = $('#cover');
+    let continuousConfettiInterval;
+    $('#openBtn').addEventListener('click', ()=>{ 
+      cover.style.display='none'; 
+      startContinuousConfetti();
+      playMusic();
+    });
+
+    // Función para el confeti continuo
+    function startContinuousConfetti() {
+      if (continuousConfettiInterval) return;
+      continuousConfettiInterval = setInterval(() => {
+        boom(10, Math.random() * W, 0);
+      }, 500);
+    }
 
     // Botones
-    document.getElementById('partyBtn').addEventListener('click', ()=> boom(140, Math.random()*W, Math.random()*H*.5 + H*.1));
-    document.getElementById('toastBtn').addEventListener('click', ()=>{ toast(`Por tus ${DATA.edad}, por nosotros y por todo lo bonito que viene 🥂`); boom(100)});
-    document.getElementById('musicBtn').addEventListener('click', toggleMusic);
-    document.getElementById('colorBtn').addEventListener('click', cyclePalette);
-    document.getElementById('shareBtn').addEventListener('click', shareCard);
+    $('#partyBtn').addEventListener('click', ()=> boom(140, Math.random()*W, Math.random()*H*.5 + H*.1));
+    $('#toastBtn').addEventListener('click', ()=>{ toast(`Por tus ${DATA.edad}, por nosotros y por todo lo bonito que viene 🥂`); boom(100)});
+    $('#musicBtn').addEventListener('click', toggleMusic);
+    $('#colorBtn').addEventListener('click', cyclePalette);
 
     // Tocar/click para chispas
     addEventListener('click', e=> sparkle(e.clientX, e.clientY));
     addEventListener('touchstart', e=>{ const t=e.touches[0]; sparkle(t.clientX,t.clientY)}, {passive:true});
 
     // Sparkle
-    function sparkle(x,y){ const n=16+Math.floor(Math.random()*12); const u=document.createDocumentFragment(); for(let i=0;i<n;i++){ const d=document.createElement('div'); d.className='pop'; d.style.cssText=`position:fixed;left:${x}px;top:${y}px;width:10px;height:10px;border-radius:50%;mix-blend-mode:screen;background:${colors[Math|Math.random()*colors.length]};opacity:.95;transform:translate(-50%,-50%);animation:pop 700ms ease-out forwards`; document.body.appendChild(d); setTimeout(()=>d.remove(),800) } boom(36,x*DPR,y*DPR) }
+    function sparkle(x,y){
+      const n=16+Math.floor(Math.random()*12);
+      for(let i=0;i<n;i++){
+        const d=D.createElement('div');
+        d.className='pop';
+        d.style.cssText=`position:fixed;left:${x}px;top:${y}px;width:10px;height:10px;border-radius:50%;mix-blend-mode:screen;background:${colors[Math.floor(Math.random()*colors.length)]};opacity:.95;transform:translate(-50%,-50%);animation:pop 700ms ease-out forwards`;
+        D.body.appendChild(d);
+        setTimeout(()=>d.remove(),800);
+      }
+      boom(36,x*DPR,y*DPR);
+    }
 
     // Anim pop keyframes (inyectamos para compatibilidad)
-    const style = document.createElement('style'); style.textContent = `@keyframes pop{to{opacity:0; transform:translate(-50%,-50%) scale(6); filter:blur(2px)}}`; document.head.appendChild(style);
+    const style = D.createElement('style'); style.textContent = `@keyframes pop{to{opacity:0; transform:translate(-50%,-50%) scale(6); filter:blur(2px)}}`; D.head.appendChild(style);
 
     // Galería placeholders
-    function ph(){ const wrap=document.createElement('div'); wrap.className='ph'; wrap.textContent='Foto'; return wrap }
+    function ph(){ const wrap=D.createElement('div'); wrap.className='ph'; wrap.textContent='Foto'; return wrap }
 
     // Toast minimalista
     function toast(text){
-      const t=document.createElement('div'); t.textContent=text; t.style.cssText='position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#000c;color:#fff;padding:10px 14px;border-radius:999px;border:1px solid #ffffff33;z-index:5;box-shadow:0 6px 30px #0008'; document.body.appendChild(t); setTimeout(()=>t.remove(),3000)
+      const t=D.createElement('div'); t.textContent=text; t.style.cssText='position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#000c;color:#fff;padding:10px 14px;border-radius:999px;border:1px solid #ffffff33;z-index:5;box-shadow:0 6px 30px #0008'; D.body.appendChild(t); setTimeout(()=>t.remove(),3000)
     }
 
     // Música
@@ -238,14 +330,22 @@
     function toggleMusic(){ if(!DATA.musica) { toast('Agrega un archivo de música en DATA.musica'); return } if(audio.paused){audio.play(); toast('Música ▶️')} else {audio.pause(); toast('Música ⏸️')} }
 
     // Paletas de color
-    let palIndex=0; function applyPalette([bg1,bg2,accent,love]){ const r=document.documentElement; r.style.setProperty('--bg1',bg1); r.style.setProperty('--bg2',bg2); r.style.setProperty('--accent',accent); r.style.setProperty('--love',love) }
+    let palIndex=0; function applyPalette([bg1,bg2,accent,love]){ const r=D.documentElement; r.style.setProperty('--bg1',bg1); r.style.setProperty('--bg2',bg2); r.style.setProperty('--accent',accent); r.style.setProperty('--love',love) }
     function cyclePalette(){ palIndex=(palIndex+1)%DATA.paletas.length; applyPalette(DATA.paletas[palIndex]); boom(80) }
-
-    // Compartir
-    async function shareCard(){ const data={ title:`Feliz ${DATA.edad} ${DATA.nombre}`, text:`Te hice esta tarjeta 💌`, url:location.href }; if(navigator.share){ try{ await navigator.share(data) }catch{} } else { navigator.clipboard.writeText(location.href); toast('Enlace copiado 📋') } }
-
+    
+    // Función para duplicar la galería y hacer el bucle
+    function setupGalleryLoop(galleryId) {
+        const gallery = document.getElementById(galleryId);
+        const originalContent = gallery.innerHTML;
+        gallery.innerHTML += originalContent;
+    }
+    
     // Ajustes iniciales
     applyPalette(DATA.paletas[0]);
+    window.onload = function() {
+      setupGalleryLoop('gallery');
+      setupGalleryLoop('galleryReverse');
+    }
   </script>
 </body>
 </html>
